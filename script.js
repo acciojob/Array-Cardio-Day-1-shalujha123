@@ -65,7 +65,7 @@ const people = [
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's and return the filtered array
 export function myfilter() {
-  return inventors.filter((item) => item.year >= 1500);
+  return inventors.filter((item) => item.year >= 1500 && item.year < 1600);
 }
 
 // Array.prototype.map()
@@ -92,7 +92,11 @@ export function reduce() {
 
 // 5. Sort the inventors by years lived and return the sorted array
 export function sortbylived() {
-  return inventors.sort((a,b) => (a.passed - a.year) - (b.passed - b.year))
+  return inventors.map((inventor) => ({
+	  ...inventor,
+	  lived: inventor.passed - inventor.year
+  }))
+	.sort((a,b) => b.lived - a.lived) 
 }
 
 // 6. sort Exercise
@@ -123,5 +127,21 @@ const data = [
 
 export function reducedSum() {
   // Return an object containing transports as key and its number of occurances as the key's value
-  return data.reduce((acc,item) => acc[item] ? {...acc, [item]: acc[item] + 1} : {...acc, [item]: 1})
+  return data.reduce((acc,item) => {
+	  acc[item] = (acc[item] || 0) + 1
+	  return acc
+  },{})
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
